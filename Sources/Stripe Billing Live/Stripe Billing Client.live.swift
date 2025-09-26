@@ -15,7 +15,8 @@ extension Stripe.Billing.Client {
         
         return Self(
             customer_Portal_Session: .live { try makeRequest(.customer_Portal_Session($0)) },
-            subscriptions: .live { try makeRequest(.subscriptions($0)) }
+            subscriptions: .live { try makeRequest(.subscriptions($0)) },
+            subscriptionSchedule: .live { try makeRequest(.subscriptionSchedule($0)) }
         )
     }
 }
