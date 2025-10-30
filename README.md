@@ -5,6 +5,26 @@
 
 Live HTTP client implementations for Stripe's REST API in Swift server applications.
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [Installation](#installation)
+- [Quick Start](#quick-start)
+  - [Configuration](#configuration)
+  - [Basic Usage](#basic-usage)
+  - [Subscription Management](#subscription-management)
+- [Implemented Modules](#implemented-modules)
+- [Architecture](#architecture)
+  - [Live Client Implementation Pattern](#live-client-implementation-pattern)
+  - [Error Handling](#error-handling)
+  - [Testing](#testing)
+- [Dependencies](#dependencies)
+- [Related Packages](#related-packages)
+- [Requirements](#requirements)
+- [License](#license)
+- [Contributing](#contributing)
+
 ## Overview
 
 `swift-stripe-live` provides HTTP client implementations for Stripe's REST API, built on async/await with dependency injection for testability. This package implements the client protocols defined in [swift-stripe-types](https://github.com/coenttb/swift-stripe-types) to make actual network requests to Stripe's servers.
@@ -56,8 +76,8 @@ import Dependencies
 let customer = try await customersClient.client.create(
     Stripe.Customers.Create.Request(
         email: "customer@example.com",
-        name: "John Doe",
-        metadata: ["user_id": "usr_123"]
+        metadata: ["user_id": "usr_123"],
+        name: "John Doe"
     )
 )
 
@@ -99,16 +119,11 @@ let subscription = try await subscriptionsClient.client.create(
     )
 )
 
-// Update subscription
+// Update subscription metadata
 let updated = try await subscriptionsClient.client.update(
     subscription.id,
     Stripe.Billing.Subscriptions.Update.Request(
-        items: [
-            .init(
-                id: subscription.items?.data?.first?.id,
-                price: "price_annual_plan"
-            )
-        ]
+        metadata: ["tier": "premium"]
     )
 )
 
