@@ -1,22 +1,22 @@
 # swift-stripe-live
 
-[![Swift](https://img.shields.io/badge/Swift-6.0-orange.svg)](https://swift.org)
-[![License](https://img.shields.io/badge/License-AGPL%203.0-blue.svg)](LICENSE.md)
-[![Version](https://img.shields.io/badge/version-0.1.0-green.svg)](https://github.com/coenttb/swift-stripe-live/releases)
+[![CI](https://github.com/coenttb/swift-stripe-live/workflows/CI/badge.svg)](https://github.com/coenttb/swift-stripe-live/actions/workflows/ci.yml)
+![Development Status](https://img.shields.io/badge/status-active--development-blue.svg)
 
-Production-ready live implementations for Stripe API operations in Swift server applications.
+Live HTTP client implementations for Stripe's REST API in Swift server applications.
 
 ## Overview
 
-`swift-stripe-live` provides complete HTTP client implementations for Stripe's REST API with:
+`swift-stripe-live` provides HTTP client implementations for Stripe's REST API, built on async/await with dependency injection for testability. This package implements the client protocols defined in [swift-stripe-types](https://github.com/coenttb/swift-stripe-types) to make actual network requests to Stripe's servers.
 
-- 🌐 **Live Networking**: Async/await based HTTP client implementations
-- 🔐 **Authentication**: Secure API key management and request signing
-- ⚡ **High Performance**: Efficient connection pooling and request handling
-- 📦 **48 Modules Implemented**: Complete coverage of essential Stripe features
-- 🧪 **Testable**: Dependency injection with swift-dependencies
-- 🚀 **Production Ready**: Battle-tested in production environments
-- 📊 **Comprehensive Coverage**: Payments, billing, subscriptions, and more
+## Features
+
+- **Async/await networking**: Modern Swift concurrency for all HTTP requests
+- **Dependency injection**: Built with swift-dependencies for testability
+- **Authentication handling**: Automatic API key management and request signing
+- **Comprehensive coverage**: 48+ modules covering core payments, billing, subscriptions, Connect, Issuing, Terminal, and more
+- **Type-safe clients**: Implements protocols from swift-stripe-types for compile-time safety
+- **Production tested**: Powers live Stripe integrations in production applications
 
 ## Installation
 
@@ -44,16 +44,17 @@ Or use an `.env` file in your project root.
 ### Basic Usage
 
 ```swift
-import StripeLive
+import Stripe_Customers_Live
+import Stripe_Payment_Intents_Live
 import Dependencies
 
-// Use dependency injection
-@Dependency(\.stripe.client.customers) var customers
-@Dependency(\.stripe.client.paymentIntents) var paymentIntents
+// Access clients via dependency injection
+@Dependency(Stripe.Customers.self) var customersClient
+@Dependency(Stripe.PaymentIntents.self) var paymentIntentsClient
 
 // Create a customer
-let customer = try await customers.create(
-    .init(
+let customer = try await customersClient.client.create(
+    Stripe.Customers.Create.Request(
         email: "customer@example.com",
         name: "John Doe",
         metadata: ["user_id": "usr_123"]
@@ -61,8 +62,8 @@ let customer = try await customers.create(
 )
 
 // Create a payment intent
-let intent = try await paymentIntents.create(
-    .init(
+let intent = try await paymentIntentsClient.client.create(
+    Stripe.PaymentIntents.Create.Request(
         amount: 2000,
         currency: .usd,
         customer: customer.id,
@@ -71,39 +72,40 @@ let intent = try await paymentIntents.create(
 )
 
 // Confirm payment
-let confirmed = try await paymentIntents.confirm(
+let confirmed = try await paymentIntentsClient.client.confirm(
     intent.id,
-    .init(paymentMethod: "pm_card_visa")
+    Stripe.PaymentIntents.Confirm.Request(
+        paymentMethod: "pm_card_visa"
+    )
 )
 ```
 
 ### Subscription Management
 
 ```swift
-@Dependency(\.stripe.client.subscriptions) var subscriptions
-@Dependency(\.stripe.client.prices) var prices
+import Stripe_Billing_Live
+import Dependencies
+
+@Dependency(Stripe.Billing.Subscriptions.self) var subscriptionsClient
 
 // Create a subscription
-let subscription = try await subscriptions.create(
-    .init(
+let subscription = try await subscriptionsClient.client.create(
+    Stripe.Billing.Subscriptions.Create.Request(
         customer: customer.id,
         items: [
-            .init(price: "price_monthly_plan")
+            .init(price: "price_monthly_plan", quantity: 1)
         ],
-        paymentBehavior: .defaultIncomplete,
-        paymentSettings: .init(
-            paymentMethodTypes: [.card]
-        )
+        paymentBehavior: .defaultIncomplete
     )
 )
 
 // Update subscription
-let updated = try await subscriptions.update(
+let updated = try await subscriptionsClient.client.update(
     subscription.id,
-    .init(
+    Stripe.Billing.Subscriptions.Update.Request(
         items: [
             .init(
-                id: subscription.items.data[0].id,
+                id: subscription.items?.data?.first?.id,
                 price: "price_annual_plan"
             )
         ]
@@ -111,54 +113,67 @@ let updated = try await subscriptions.update(
 )
 
 // Cancel subscription
-let canceled = try await subscriptions.cancel(
+let canceled = try await subscriptionsClient.client.cancel(
     subscription.id,
-    .init(invoiceNow: true)
+    Stripe.Billing.Subscriptions.Cancel.Request(invoiceNow: true)
 )
 ```
 
 ## Implemented Modules
 
-### Core Payment Processing ✅
+The package provides live implementations for 48+ Stripe API modules across these categories:
+
+### Core Payment Processing
 - Payment Intents, Payment Methods, Setup Intents
 - Charges, Refunds, Disputes
 - Customer management
-- Token handling
+- Token and confirmation token handling
 
-### Billing & Subscriptions ✅
+### Billing & Subscriptions
 - Subscriptions with items and schedules
 - Invoices with line items
 - Credit notes and adjustments
 - Plans, prices, and usage records
 - Quotes and test clocks
-- Customer portal configuration
+- Meters and meter events
 
-### Products & Commerce ✅
-- Product catalog
-- Dynamic pricing
+### Products & Pricing
+- Product catalog management
+- Price configuration
 - Coupons and promotion codes
-- Tax rates and shipping rates
+- Tax codes and rates
 
-### Platform & Connect ✅
+### Connect Platform
 - Connected accounts
 - Transfers and reversals
 - Account links and sessions
-- Application fees
+- Application fees and refunds
+- External accounts
 
-### Additional Features ✅
-- Balance and transactions
-- Events and webhooks
-- File uploads
-- Payouts
-- Terminal for in-person payments
-- Tax calculations
+### Additional Modules
+- Balance and balance transactions
+- Events and event destinations
+- File uploads and links
+- Payouts and mandates
+- Terminal (in-person payments)
+- Tax calculations and registrations
+- Issuing (cards, cardholders, authorizations)
+- Treasury (financial accounts)
+- Identity verification
 - Fraud detection
+- Climate orders
+- Entitlements
+- Sigma scheduled queries
+- Financial connections
+- Crypto onramp
+- Webhooks
+- Forwarding requests
 
 ## Architecture
 
-### Live Client Pattern
+### Live Client Implementation Pattern
 
-Each Stripe resource has a live implementation:
+Each Stripe API module follows this implementation pattern:
 
 ```swift
 extension Stripe.Customers.Client {
@@ -166,7 +181,7 @@ extension Stripe.Customers.Client {
         makeRequest: @escaping @Sendable (_ route: Stripe.Customers.API) throws -> URLRequest
     ) -> Self {
         @Dependency(URLRequest.Handler.Stripe.self) var handleRequest
-        
+
         return Self(
             create: { request in
                 try await handleRequest(
@@ -180,78 +195,81 @@ extension Stripe.Customers.Client {
                     decodingTo: Stripe.Customer.self
                 )
             }
-            // ... other operations
+            // ... other endpoints
         )
     }
 }
 ```
 
+The `Authenticated` wrapper type handles API key injection and base URL configuration from environment variables.
+
 ### Error Handling
 
-Comprehensive error handling for:
-- Network failures
-- API errors with detailed messages
-- Rate limiting with automatic retry
+The package handles:
+- Network failures and timeouts
+- Stripe API errors with detailed error messages
+- Rate limiting (requires manual retry logic)
 - Authentication failures
-- Validation errors
+- Request validation errors
 
 ### Testing
 
-Test against Stripe's test mode:
+Use Swift Testing framework with dependency injection:
 
 ```swift
 import Testing
-import StripeLive
+import Stripe_Customers_Live
 import Dependencies
+import EnvironmentVariables
 
-@Test
-func testPaymentFlow() async throws {
-    // Use test API keys
-    await withDependencies {
-        $0.stripe.secretKey = "sk_test_..."
-    } operation: {
-        let customer = try await customers.create(
-            .init(email: "test@example.com")
+@Suite(
+    .dependency(\.envVars, .development)
+)
+struct CustomerTests {
+    @Test
+    func testCustomerCreation() async throws {
+        @Dependency(Stripe.Customers.self) var client
+
+        let customer = try await client.client.create(
+            Stripe.Customers.Create.Request(
+                email: "test@example.com",
+                name: "Test Customer"
+            )
         )
-        
+
         #expect(customer.email == "test@example.com")
+
+        // Cleanup
+        _ = try await client.client.delete(customer.id)
     }
 }
 ```
 
 ## Dependencies
 
-Built on robust foundations:
-- [swift-stripe-types](https://github.com/coenttb/swift-stripe-types): Type definitions (Apache 2.0)
-- [swift-server-foundation](https://github.com/coenttb/swift-server-foundation): Server utilities
-- [swift-dependencies](https://github.com/pointfreeco/swift-dependencies): Dependency injection
-
-## Production Use
-
-This package powers production Stripe integrations including:
-- E-commerce platforms
-- SaaS subscription services
-- Marketplace applications
-- Payment processing systems
+- [swift-stripe-types](https://github.com/coenttb/swift-stripe-types): Core type definitions and client protocols
+- [swift-server-foundation](https://github.com/coenttb/swift-server-foundation): Server utilities and HTTP handling
+- [swift-dependencies](https://github.com/pointfreeco/swift-dependencies): Dependency injection framework
+- [swift-authenticating](https://github.com/coenttb/swift-authenticating): Authentication utilities
+- [swift-environment-variables](https://github.com/coenttb/swift-environment-variables): Environment variable management
 
 ## Related Packages
 
-- [swift-stripe-types](https://github.com/coenttb/swift-stripe-types): Core types (Apache 2.0)
-- [swift-stripe](https://github.com/coenttb/swift-stripe): High-level client wrapper
-- [coenttb-com-server](https://github.com/coenttb/coenttb-com-server): Production example
+- [swift-stripe-types](https://github.com/coenttb/swift-stripe-types): A Swift package with foundational types for Stripe
+- [swift-stripe](https://github.com/coenttb/swift-stripe): The Swift library for the Stripe API
 
 ## Requirements
 
 - Swift 6.0+
 - macOS 14+ / iOS 17+ / Linux
-- Stripe account with API keys
+- Stripe account with API keys (test mode recommended for development)
 
 ## License
 
-This package is licensed under the AGPL 3.0 License. See [LICENSE.md](LICENSE.md) for details.
+This package is licensed under the AGPL 3.0 License. See [LICENSE](LICENSE) for details.
 
 For commercial licensing options, please contact the maintainer.
 
-## Support
+## Contributing
 
-For issues, questions, or contributions, please visit the [GitHub repository](https://github.com/coenttb/swift-stripe-live).
+Contributions are welcome. Please open an issue or pull request on [GitHub](https://github.com/coenttb/swift-stripe-live).
