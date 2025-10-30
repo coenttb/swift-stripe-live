@@ -3,15 +3,15 @@
 //  swift-stripe-live
 //
 
-import Testing
-import Foundation
-import Stripe_Products_Live
-import ServerFoundation
 import Dependencies
+import Foundation
+import ServerFoundation
+import Stripe_Products_Live
+import Testing
 
-@Test("Test Handler Decode Product")  
+@Test("Test Handler Decode Product")
 func testHandlerDecodeProduct() async throws {
-    let json = """
+  let json = """
     {
       "id": "prod_Test",
       "object": "product",
@@ -35,20 +35,20 @@ func testHandlerDecodeProduct() async throws {
       "url": null
     }
     """
-    
-    // Create a mock handler that returns our JSON
-    @Dependency(URLRequest.Handler.Stripe.self) var handler
-    
-    // Test direct decode first
-    let decoder = JSONDecoder()
-    decoder.dateDecodingStrategy = .secondsSince1970
-    let data = json.data(using: .utf8)!
-    
-    do {
-        let product = try decoder.decode(Stripe.Products.Product.self, from: data)
-        print("Direct decode succeeded: \(product.id)")
-    } catch {
-        print("Direct decode failed: \(error)")
-        throw error
-    }
+
+  // Create a mock handler that returns our JSON
+  @Dependency(URLRequest.Handler.Stripe.self) var handler
+
+  // Test direct decode first
+  let decoder = JSONDecoder()
+  decoder.dateDecodingStrategy = .secondsSince1970
+  let data = json.data(using: .utf8)!
+
+  do {
+    let product = try decoder.decode(Stripe.Products.Product.self, from: data)
+    print("Direct decode succeeded: \(product.id)")
+  } catch {
+    print("Direct decode failed: \(error)")
+    throw error
+  }
 }

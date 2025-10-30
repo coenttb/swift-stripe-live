@@ -3,14 +3,14 @@
 //  swift-stripe-live
 //
 
-import Testing
 import Foundation
 import Stripe_Products_Types
+import Testing
 
 @Test("Test Exact JSON From Error")
 func testExactJSONFromError() throws {
-    // This is the exact JSON from the error message
-    let json = """
+  // This is the exact JSON from the error message
+  let json = """
     {
       "id": "prod_SrJ2WUHjffo8tX",
       "object": "product",
@@ -36,21 +36,21 @@ func testExactJSONFromError() throws {
       "url": null
     }
     """
-    
-    let decoder = JSONDecoder()
-    decoder.dateDecodingStrategy = .secondsSince1970
-    
-    let data = json.data(using: .utf8)!
-    
-    do {
-        let product = try decoder.decode(Stripe.Products.Product.self, from: data)
-        print("Successfully decoded product: \(product.id)")
-        #expect(product.id == "prod_SrJ2WUHjffo8tX")
-        #expect(product.name == "Test Product")
-        #expect(product.shippable == true)
-        #expect(product.type == .service)
-    } catch {
-        print("Decoding error: \(error)")
-        throw error
-    }
+
+  let decoder = JSONDecoder()
+  decoder.dateDecodingStrategy = .secondsSince1970
+
+  let data = json.data(using: .utf8)!
+
+  do {
+    let product = try decoder.decode(Stripe.Products.Product.self, from: data)
+    print("Successfully decoded product: \(product.id)")
+    #expect(product.id == "prod_SrJ2WUHjffo8tX")
+    #expect(product.name == "Test Product")
+    #expect(product.shippable == true)
+    #expect(product.type == .service)
+  } catch {
+    print("Decoding error: \(error)")
+    throw error
+  }
 }

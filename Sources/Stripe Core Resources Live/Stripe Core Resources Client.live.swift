@@ -1,10 +1,8 @@
-import Stripe_Live_Shared
-import Stripe_Core_Resources_Types
-
-import Stripe_Balance_Types
 import Stripe_Balance_Live_Transactions_Types
+import Stripe_Balance_Types
 import Stripe_Charges_Types
 import Stripe_Confirmation_Token_Types
+import Stripe_Core_Resources_Types
 import Stripe_Customer_Session_Types
 import Stripe_Customers_Types
 import Stripe_Disputes_Types
@@ -12,6 +10,7 @@ import Stripe_Event_Destinations_Types
 import Stripe_Events_Types
 import Stripe_File_Links_Types
 import Stripe_Files_Types
+import Stripe_Live_Shared
 import Stripe_Mandates_Types
 import Stripe_Payment_Intents_Types
 import Stripe_Payouts_Types

@@ -10,10 +10,10 @@ import Foundation
 import ServerFoundation
 
 extension URL {
-    package static var stripe: URL {
-        .init(fileURLWithPath: #filePath)
-            .deletingLastPathComponent()
-            .deletingLastPathComponent()
-            .deletingLastPathComponent()
-    }
+  package static var stripe: URL {
+    .init(fileURLWithPath: #filePath)
+      .deletingLastPathComponent()
+      .deletingLastPathComponent()
+      .deletingLastPathComponent()
+  }
 }
