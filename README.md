@@ -270,8 +270,21 @@ struct CustomerTests {
 
 ## Related Packages
 
-- [swift-stripe-types](https://github.com/coenttb/swift-stripe-types): A Swift package with foundational types for Stripe
-- [swift-stripe](https://github.com/coenttb/swift-stripe): The Swift library for the Stripe API
+### Dependencies
+
+- [swift-authenticating](https://github.com/coenttb/swift-authenticating): A Swift package for type-safe HTTP authentication with URL routing integration.
+- [swift-environment-variables](https://github.com/coenttb/swift-environment-variables): A Swift package for type-safe environment variable management.
+- [swift-server-foundation](https://github.com/coenttb/swift-server-foundation): A Swift package with tools to simplify server development.
+- [swift-stripe-types](https://github.com/coenttb/swift-stripe-types): A Swift package with foundational types for Stripe.
+
+### Used By
+
+- [swift-stripe](https://github.com/coenttb/swift-stripe): The Swift library for the Stripe API.
+
+### Third-Party Dependencies
+
+- [pointfreeco/swift-dependencies](https://github.com/pointfreeco/swift-dependencies): A dependency management library for controlling dependencies in Swift.
+- [pointfreeco/swift-tagged](https://github.com/pointfreeco/swift-tagged): A wrapper type for safer, expressive code.
 
 ## Requirements
 
