@@ -134,7 +134,11 @@ struct StripeRateLimitWithinLimitsTests {
     // Now make rapid requests directly to Stripe without our rate limiting
     // This should trigger actual 429 errors from Stripe
     @Dependency(\.envVars) var envVars
-    let apiKey = envVars.stripe.secretKey.rawValue
+    guard let secretKeyObj = envVars.stripe.secretKey else {
+      print("Skipping test: STRIPE_SECRET_KEY environment variable not set")
+      return
+    }
+    let apiKey = secretKeyObj.rawValue
     let baseURL = "https://api.stripe.com/v1"
 
     var url = URLComponents(string: "\(baseURL)/products/\(product.id)")!

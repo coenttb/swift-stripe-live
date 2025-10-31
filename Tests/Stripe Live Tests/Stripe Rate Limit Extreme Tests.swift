@@ -31,7 +31,11 @@ struct StripeRateLimitExtremeTests {
     print("This should definitely exceed 25 req/sec")
     print("=====================================\n")
 
-    let apiKey = envVars.stripe.secretKey.rawValue
+    guard let secretKeyObj = envVars.stripe.secretKey else {
+      print("Skipping test: STRIPE_SECRET_KEY environment variable not set")
+      return
+    }
+    let apiKey = secretKeyObj.rawValue
     let baseURL = "https://api.stripe.com/v1"
 
     // First create a product to query

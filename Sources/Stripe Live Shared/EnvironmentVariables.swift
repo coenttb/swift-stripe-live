@@ -19,14 +19,14 @@ extension EnvironmentVariables {
       )!
     }
 
-    package var secretKey: ApiKey {
+    package var secretKey: ApiKey? {
       @Dependency(\.envVars) var envVars
-      return envVars["STRIPE_SECRET_KEY"].map(ApiKey.init(rawValue:))!
+      return envVars["STRIPE_SECRET_KEY"].map(ApiKey.init(rawValue:))
     }
 
-    public var publishableKey: ApiKey {
+    public var publishableKey: ApiKey? {
       @Dependency(\.envVars) var envVars
-      return envVars["STRIPE_PUBLISHABLE_KEY"].map(ApiKey.init(rawValue:))!
+      return envVars["STRIPE_PUBLISHABLE_KEY"].map(ApiKey.init(rawValue:))
     }
 
     public var webhookSecret: String? {
@@ -41,20 +41,20 @@ extension EnvironmentVariables {
 }
 
 extension EnvironmentVariables {
-  package var stripeTestMailingList: EmailAddress {
-    self["STRIPE_TEST_MAILINGLIST"].map { try! EmailAddress($0) }!
+  package var stripeTestMailingList: EmailAddress? {
+    self["STRIPE_TEST_MAILINGLIST"].flatMap { try? EmailAddress($0) }
   }
 
-  package var stripeTestRecipient: EmailAddress {
-    self["STRIPE_TEST_RECIPIENT"].map { try! EmailAddress($0) }!
+  package var stripeTestRecipient: EmailAddress? {
+    self["STRIPE_TEST_RECIPIENT"].flatMap { try? EmailAddress($0) }
   }
 
-  package var stripeFrom: EmailAddress {
-    self["STRIPE_FROM_EMAIL"].map { try! EmailAddress($0) }!
+  package var stripeFrom: EmailAddress? {
+    self["STRIPE_FROM_EMAIL"].flatMap { try? EmailAddress($0) }
   }
 
-  package var stripeTo: EmailAddress {
-    self["STRIPE_TO_EMAIL"].map { try! EmailAddress($0) }!
+  package var stripeTo: EmailAddress? {
+    self["STRIPE_TO_EMAIL"].flatMap { try? EmailAddress($0) }
   }
 }
 

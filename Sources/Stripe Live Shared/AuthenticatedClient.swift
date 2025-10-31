@@ -30,6 +30,10 @@ extension Authenticated {
     @Dependency(\.envVars.stripe.baseUrl) var baseUrl
     @Dependency(\.envVars.stripe.secretKey) var secretKey
 
+    guard let secretKey else {
+      throw NSError(domain: "StripeAuth", code: 1, userInfo: [NSLocalizedDescriptionKey: "STRIPE_SECRET_KEY environment variable not set"])
+    }
+
     self = .init(
       baseURL: baseUrl,
       auth: try .init(token: secretKey.rawValue),
