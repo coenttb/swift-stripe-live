@@ -29,7 +29,8 @@ struct StripeThrottledClientKey: DependencyKey {
       backoffMultiplier: 2.0
     ),
     pacer: RequestPacer<String>(
-      targetRate: 100.0  // Live mode: 100 req/sec with smooth pacing
+      targetRate: 100.0,  // Live mode: 100 req/sec with smooth pacing
+      allowCatchUp: true  // Allow requests to catch up if behind schedule
     )
   )
 
@@ -43,13 +44,14 @@ struct StripeThrottledClientKey: DependencyKey {
       backoffMultiplier: 2.0
     ),
     pacer: RequestPacer<String>(
-      targetRate: 25.0  // Test mode: 25 req/sec with smooth pacing
+      targetRate: 25.0,  // Test mode: 25 req/sec with smooth pacing
+      allowCatchUp: true  // Allow requests to catch up if behind schedule
     )
   )
 }
 
 extension DependencyValues {
-  var stripeThrottledClient: ThrottledClient<String> {
+  package var stripeThrottledClient: ThrottledClient<String> {
     get { self[StripeThrottledClientKey.self] }
     set { self[StripeThrottledClientKey.self] = newValue }
   }

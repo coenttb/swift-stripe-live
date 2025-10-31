@@ -13,6 +13,7 @@ import Foundation
 import Stripe_Live_Shared
 import Stripe_Products_Live
 import Testing
+import Throttling
 
 @Suite(
   "Stripe Rate Limit Within Limits Tests",
@@ -20,6 +21,20 @@ import Testing
   .dependency(\.envVars, .development),
   .dependency(\.date, .init(Date.init)),
   .dependency(\.continuousClock, ContinuousClock()),
+  .dependency(\.stripeThrottledClient, ThrottledClient<String>(
+    rateLimiter: RateLimiter<String>(
+      windows: [
+        .seconds(1, maxAttempts: 25),
+        .minutes(1, maxAttempts: 1500),
+        .hours(1, maxAttempts: 90000),
+      ],
+      backoffMultiplier: 2.0
+    ),
+    pacer: RequestPacer<String>(
+      targetRate: 25.0,
+      allowCatchUp: true
+    )
+  )),
   .serialized
 )
 struct StripeRateLimitWithinLimitsTests {
