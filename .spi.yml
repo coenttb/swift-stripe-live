@@ -1,0 +1,45 @@
+version: 1
+builder:
+  configs:
+  - documentation_targets:
+    - Stripe Balance Live
+    - Stripe Balance Transactions Live
+    - Stripe Billing Live
+    - Stripe Capital Live
+    - Stripe Charges Live
+    - Stripe Checkout Live
+    - Stripe Climate Live
+    - Stripe Confirmation Token Live
+    - Stripe Connect Live
+    - Stripe Crypto Live
+    - Stripe Customer Session Live
+    - Stripe Customers Live
+    - Stripe Disputes Live
+    - Stripe Entitlements Live
+    - Stripe Event Destinations Live
+    - Stripe Events Live
+    - Stripe File Links Live
+    - Stripe Files Live
+    - Stripe Financial Connections Live
+    - Stripe Forwarding Live
+    - Stripe Fraud Live
+    - Stripe Identity Live
+    - Stripe Issuing Live
+    - Stripe Live
+    - Stripe Live Shared
+    - Stripe Mandates Live
+    - Stripe Payment Intents Live
+    - Stripe Payment Link Live
+    - Stripe Payment Methods Live
+    - Stripe Payouts Live
+    - Stripe Products Live
+    - Stripe Refunds Live
+    - Stripe Reporting Live
+    - Stripe Setup Attempts Live
+    - Stripe Setup Intents Live
+    - Stripe Sigma Live
+    - Stripe Tax Live
+    - Stripe Terminal Live
+    - Stripe Tokens Live
+    - Stripe Treasury Live
+    - Stripe Webhooks Live

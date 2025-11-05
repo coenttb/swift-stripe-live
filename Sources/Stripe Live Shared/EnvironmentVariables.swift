@@ -11,59 +11,59 @@ import Foundation
 
 extension EnvironmentVariables {
 
-  public struct Stripe: Sendable, Equatable {
-    public var baseUrl: URL {
-      @Dependency(\.envVars) var envVars
-      return envVars["STRIPE_BASE_URL"].flatMap(URL.init(string:)) ?? URL(
-        string: "https://api.stripe.com/v1"
-      )!
-    }
+    public struct Stripe: Sendable, Equatable {
+        public var baseUrl: URL {
+            @Dependency(\.envVars) var envVars
+            return envVars["STRIPE_BASE_URL"].flatMap(URL.init(string:)) ?? URL(
+                string: "https://api.stripe.com/v1"
+            )!
+        }
 
-    package var secretKey: ApiKey? {
-      @Dependency(\.envVars) var envVars
-      return envVars["STRIPE_SECRET_KEY"].map(ApiKey.init(rawValue:))
-    }
+        package var secretKey: ApiKey? {
+            @Dependency(\.envVars) var envVars
+            return envVars["STRIPE_SECRET_KEY"].map(ApiKey.init(rawValue:))
+        }
 
-    public var publishableKey: ApiKey? {
-      @Dependency(\.envVars) var envVars
-      return envVars["STRIPE_PUBLISHABLE_KEY"].map(ApiKey.init(rawValue:))
-    }
+        public var publishableKey: ApiKey? {
+            @Dependency(\.envVars) var envVars
+            return envVars["STRIPE_PUBLISHABLE_KEY"].map(ApiKey.init(rawValue:))
+        }
 
-    public var webhookSecret: String? {
-      @Dependency(\.envVars) var envVars
-      return envVars["STRIPE_WEBHOOK_SIGNING_SECRET"]
+        public var webhookSecret: String? {
+            @Dependency(\.envVars) var envVars
+            return envVars["STRIPE_WEBHOOK_SIGNING_SECRET"]
+        }
     }
-  }
 }
 
 extension EnvironmentVariables {
-  public var stripe: Stripe { .init() }
+    public var stripe: Stripe { .init() }
 }
 
 extension EnvironmentVariables {
-  package var stripeTestMailingList: EmailAddress? {
-    self["STRIPE_TEST_MAILINGLIST"].flatMap { try? EmailAddress($0) }
-  }
+    package var stripeTestMailingList: EmailAddress? {
+        self["STRIPE_TEST_MAILINGLIST"].flatMap { try? EmailAddress($0) }
+    }
 
-  package var stripeTestRecipient: EmailAddress? {
-    self["STRIPE_TEST_RECIPIENT"].flatMap { try? EmailAddress($0) }
-  }
+    package var stripeTestRecipient: EmailAddress? {
+        self["STRIPE_TEST_RECIPIENT"].flatMap { try? EmailAddress($0) }
+    }
 
-  package var stripeFrom: EmailAddress? {
-    self["STRIPE_FROM_EMAIL"].flatMap { try? EmailAddress($0) }
-  }
+    package var stripeFrom: EmailAddress? {
+        self["STRIPE_FROM_EMAIL"].flatMap { try? EmailAddress($0) }
+    }
 
-  package var stripeTo: EmailAddress? {
-    self["STRIPE_TO_EMAIL"].flatMap { try? EmailAddress($0) }
-  }
+    package var stripeTo: EmailAddress? {
+        self["STRIPE_TO_EMAIL"].flatMap { try? EmailAddress($0) }
+    }
 }
 
 extension EnvVars {
-  package static var development: Self {
-    @Dependency(\.projectRoot) var projectRoot
-    return try! .live(
-      environmentConfiguration: .projectRoot(projectRoot, environment: "development"),
-      requiredKeys: []
-    )
-  }
+    package static var development: Self {
+        @Dependency(\.projectRoot) var projectRoot
+        return try! .live(
+            environmentConfiguration: .projectRoot(projectRoot, environment: "development"),
+            requiredKeys: []
+        )
+    }
 }

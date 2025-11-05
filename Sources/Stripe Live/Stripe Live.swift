@@ -51,58 +51,58 @@ import Stripe_Types
 import Stripe_Webhooks_Live
 
 extension Stripe.Client {
-  public static func live(
-    makeRequest: @escaping @Sendable (_ route: Stripe.API) throws -> URLRequest
-  ) -> Self {
-    return Self(
-      balance: .live { try makeRequest(.balance($0)) },
-      balanceTransactions: .live { try makeRequest(.balanceTransactions($0)) },
-      charges: .live { try makeRequest(.charges($0)) },
-      customers: .live { try makeRequest(.customers($0)) },
-      customerSessions: .live { try makeRequest(.customerSessions($0)) },
-      disputes: .live { try makeRequest(.disputes($0)) },
-      events: .live { try makeRequest(.events($0)) },
-      files: .live { try makeRequest(.files($0)) },
-      fileLinks: .live { try makeRequest(.fileLinks($0)) },
-      mandates: .live { try makeRequest(.mandates($0)) },
-      paymentIntents: .live { try makeRequest(.paymentIntents($0)) },
-      setupIntents: .live { try makeRequest(.setupIntents($0)) },
-      setupAttempts: .live { try makeRequest(.setupAttempts($0)) },
-      payouts: .live { try makeRequest(.payouts($0)) },
-      refunds: .live { try makeRequest(.refunds($0)) },
-      confirmationToken: .live { try makeRequest(.confirmationToken($0)) },
-      tokens: .live { try makeRequest(.tokens($0)) },
-      paymentMethods: .live { try makeRequest(.paymentMethods($0)) },
-      paymentLinks: .live { try makeRequest(.paymentLinks($0)) },
-      products: .live { try makeRequest(.products($0)) },
-      checkout: .live { try makeRequest(.checkout($0)) },
-      billing: .live { try makeRequest(.billing($0)) }
-    )
-  }
+    public static func live(
+        makeRequest: @escaping @Sendable (_ route: Stripe.API) throws -> URLRequest
+    ) -> Self {
+        return Self(
+            balance: .live { try makeRequest(.balance($0)) },
+            balanceTransactions: .live { try makeRequest(.balanceTransactions($0)) },
+            charges: .live { try makeRequest(.charges($0)) },
+            customers: .live { try makeRequest(.customers($0)) },
+            customerSessions: .live { try makeRequest(.customerSessions($0)) },
+            disputes: .live { try makeRequest(.disputes($0)) },
+            events: .live { try makeRequest(.events($0)) },
+            files: .live { try makeRequest(.files($0)) },
+            fileLinks: .live { try makeRequest(.fileLinks($0)) },
+            mandates: .live { try makeRequest(.mandates($0)) },
+            paymentIntents: .live { try makeRequest(.paymentIntents($0)) },
+            setupIntents: .live { try makeRequest(.setupIntents($0)) },
+            setupAttempts: .live { try makeRequest(.setupAttempts($0)) },
+            payouts: .live { try makeRequest(.payouts($0)) },
+            refunds: .live { try makeRequest(.refunds($0)) },
+            confirmationToken: .live { try makeRequest(.confirmationToken($0)) },
+            tokens: .live { try makeRequest(.tokens($0)) },
+            paymentMethods: .live { try makeRequest(.paymentMethods($0)) },
+            paymentLinks: .live { try makeRequest(.paymentLinks($0)) },
+            products: .live { try makeRequest(.products($0)) },
+            checkout: .live { try makeRequest(.checkout($0)) },
+            billing: .live { try makeRequest(.billing($0)) }
+        )
+    }
 }
 
 extension Stripe {
-  public typealias Authenticated = Stripe_Live_Shared.Authenticated<
-    Stripe.API,
-    Stripe.API.Router,
-    Stripe.Client
-  >
+    public typealias Authenticated = Stripe_Live_Shared.Authenticated<
+        Stripe.API,
+        Stripe.API.Router,
+        Stripe.Client
+    >
 }
 
 extension Stripe: @retroactive DependencyKey {
-  public static var liveValue: Stripe.Authenticated {
-    try! Stripe.Authenticated { .live(makeRequest: $0) }
-  }
-  public static let testValue: Stripe.Authenticated = liveValue
+    public static var liveValue: Stripe.Authenticated {
+        try! Stripe.Authenticated { .live(makeRequest: $0) }
+    }
+    public static let testValue: Stripe.Authenticated = liveValue
 }
 
 extension Stripe.API.Router: @retroactive DependencyKey {
-  public static let liveValue: Stripe.API.Router = .init()
+    public static let liveValue: Stripe.API.Router = .init()
 }
 
 extension DependencyValues {
-  public var stripe: Stripe.Authenticated {
-    get { self[Stripe.self] }
-    set { self[Stripe.self] = newValue }
-  }
+    public var stripe: Stripe.Authenticated {
+        get { self[Stripe.self] }
+        set { self[Stripe.self] = newValue }
+    }
 }
