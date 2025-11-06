@@ -81,7 +81,9 @@ extension Target.Dependency {
     static var stripeEntitlementsLive: Self { .target(name: .stripeEntitlementsLive) }
     static var stripeSigmaLive: Self { .target(name: .stripeSigmaLive) }
     static var stripeReportingLive: Self { .target(name: .stripeReportingLive) }
-    static var stripeFinancialConnectionsLive: Self { .target(name: .stripeFinancialConnectionsLive) }
+    static var stripeFinancialConnectionsLive: Self {
+        .target(name: .stripeFinancialConnectionsLive)
+    }
     static var stripeTaxLive: Self { .target(name: .stripeTaxLive) }
     static var stripeIdentityLive: Self { .target(name: .stripeIdentityLive) }
     static var stripeCryptoLive: Self { .target(name: .stripeCryptoLive) }
@@ -93,53 +95,141 @@ extension Target.Dependency {
 
 extension Target.Dependency {
     static var stripeTypes: Self { .product(name: "Stripe Types", package: "swift-stripe-types") }
-    static var stripeBalanceTypes: Self { .product(name: "Stripe Balance Types", package: "swift-stripe-types") }
-    static var stripeBalanceTransactionsTypes: Self { .product(name: "Stripe Balance Transactions Types", package: "swift-stripe-types") }
-    static var stripeChargesTypes: Self { .product(name: "Stripe Charges Types", package: "swift-stripe-types") }
-    static var stripeCustomersTypes: Self { .product(name: "Stripe Customers Types", package: "swift-stripe-types") }
-    static var stripeCustomerSessionTypes: Self { .product(name: "Stripe Customer Session Types", package: "swift-stripe-types") }
-    static var stripeDisputesTypes: Self { .product(name: "Stripe Disputes Types", package: "swift-stripe-types") }
-    static var stripeEventsTypes: Self { .product(name: "Stripe Events Types", package: "swift-stripe-types") }
-    static var stripeEventDestinationsTypes: Self { .product(name: "Stripe Event Destinations Types", package: "swift-stripe-types") }
-    static var stripeFilesTypes: Self { .product(name: "Stripe Files Types", package: "swift-stripe-types") }
-    static var stripeFileLinksTypes: Self { .product(name: "Stripe File Links Types", package: "swift-stripe-types") }
-    static var stripeMandatesTypes: Self { .product(name: "Stripe Mandates Types", package: "swift-stripe-types") }
-    static var stripePaymentIntentsTypes: Self { .product(name: "Stripe Payment Intents Types", package: "swift-stripe-types") }
-    static var stripeSetupIntentsTypes: Self { .product(name: "Stripe Setup Intents Types", package: "swift-stripe-types") }
-    static var stripeSetupAttemptsTypes: Self { .product(name: "Stripe Setup Attempts Types", package: "swift-stripe-types") }
-    static var stripePayoutsTypes: Self { .product(name: "Stripe Payouts Types", package: "swift-stripe-types") }
-    static var stripeRefundsTypes: Self { .product(name: "Stripe Refunds Types", package: "swift-stripe-types") }
-    static var stripeConfirmationTokenTypes: Self { .product(name: "Stripe Confirmation Token Types", package: "swift-stripe-types") }
-    static var stripeTokensTypes: Self { .product(name: "Stripe Tokens Types", package: "swift-stripe-types") }
-    static var stripePaymentMethodsTypes: Self { .product(name: "Stripe Payment Methods Types", package: "swift-stripe-types") }
-    static var stripeProductsTypes: Self { .product(name: "Stripe Products Types", package: "swift-stripe-types") }
-    static var stripeCheckoutTypes: Self { .product(name: "Stripe Checkout Types", package: "swift-stripe-types") }
-    static var stripePaymentLinkTypes: Self { .product(name: "Stripe Payment Link Types", package: "swift-stripe-types") }
-    static var stripeBillingTypes: Self { .product(name: "Stripe Billing Types", package: "swift-stripe-types") }
-    static var stripeCapitalTypes: Self { .product(name: "Stripe Capital Types", package: "swift-stripe-types") }
-    static var stripeConnectTypes: Self { .product(name: "Stripe Connect Types", package: "swift-stripe-types") }
-    static var stripeFraudTypes: Self { .product(name: "Stripe Fraud Types", package: "swift-stripe-types") }
-    static var stripeIssuingTypes: Self { .product(name: "Stripe Issuing Types", package: "swift-stripe-types") }
-    static var stripeTerminalTypes: Self { .product(name: "Stripe Terminal Types", package: "swift-stripe-types") }
-    static var stripeTreasuryTypes: Self { .product(name: "Stripe Treasury Types", package: "swift-stripe-types") }
-    static var stripeEntitlementsTypes: Self { .product(name: "Stripe Entitlements Types", package: "swift-stripe-types") }
-    static var stripeSigmaTypes: Self { .product(name: "Stripe Sigma Types", package: "swift-stripe-types") }
-    static var stripeReportingTypes: Self { .product(name: "Stripe Reporting Types", package: "swift-stripe-types") }
-    static var stripeFinancialConnectionsTypes: Self { .product(name: "Stripe Financial Connections Types", package: "swift-stripe-types") }
-    static var stripeTaxTypes: Self { .product(name: "Stripe Tax Types", package: "swift-stripe-types") }
-    static var stripeIdentityTypes: Self { .product(name: "Stripe Identity Types", package: "swift-stripe-types") }
-    static var stripeCryptoTypes: Self { .product(name: "Stripe Crypto Types", package: "swift-stripe-types") }
-    static var stripeClimateTypes: Self { .product(name: "Stripe Climate Types", package: "swift-stripe-types") }
-    static var stripeForwardingTypes: Self { .product(name: "Stripe Forwarding Types", package: "swift-stripe-types") }
-    static var stripeWebhooksTypes: Self { .product(name: "Stripe Webhooks Types", package: "swift-stripe-types") }
+    static var stripeBalanceTypes: Self {
+        .product(name: "Stripe Balance Types", package: "swift-stripe-types")
+    }
+    static var stripeBalanceTransactionsTypes: Self {
+        .product(name: "Stripe Balance Transactions Types", package: "swift-stripe-types")
+    }
+    static var stripeChargesTypes: Self {
+        .product(name: "Stripe Charges Types", package: "swift-stripe-types")
+    }
+    static var stripeCustomersTypes: Self {
+        .product(name: "Stripe Customers Types", package: "swift-stripe-types")
+    }
+    static var stripeCustomerSessionTypes: Self {
+        .product(name: "Stripe Customer Session Types", package: "swift-stripe-types")
+    }
+    static var stripeDisputesTypes: Self {
+        .product(name: "Stripe Disputes Types", package: "swift-stripe-types")
+    }
+    static var stripeEventsTypes: Self {
+        .product(name: "Stripe Events Types", package: "swift-stripe-types")
+    }
+    static var stripeEventDestinationsTypes: Self {
+        .product(name: "Stripe Event Destinations Types", package: "swift-stripe-types")
+    }
+    static var stripeFilesTypes: Self {
+        .product(name: "Stripe Files Types", package: "swift-stripe-types")
+    }
+    static var stripeFileLinksTypes: Self {
+        .product(name: "Stripe File Links Types", package: "swift-stripe-types")
+    }
+    static var stripeMandatesTypes: Self {
+        .product(name: "Stripe Mandates Types", package: "swift-stripe-types")
+    }
+    static var stripePaymentIntentsTypes: Self {
+        .product(name: "Stripe Payment Intents Types", package: "swift-stripe-types")
+    }
+    static var stripeSetupIntentsTypes: Self {
+        .product(name: "Stripe Setup Intents Types", package: "swift-stripe-types")
+    }
+    static var stripeSetupAttemptsTypes: Self {
+        .product(name: "Stripe Setup Attempts Types", package: "swift-stripe-types")
+    }
+    static var stripePayoutsTypes: Self {
+        .product(name: "Stripe Payouts Types", package: "swift-stripe-types")
+    }
+    static var stripeRefundsTypes: Self {
+        .product(name: "Stripe Refunds Types", package: "swift-stripe-types")
+    }
+    static var stripeConfirmationTokenTypes: Self {
+        .product(name: "Stripe Confirmation Token Types", package: "swift-stripe-types")
+    }
+    static var stripeTokensTypes: Self {
+        .product(name: "Stripe Tokens Types", package: "swift-stripe-types")
+    }
+    static var stripePaymentMethodsTypes: Self {
+        .product(name: "Stripe Payment Methods Types", package: "swift-stripe-types")
+    }
+    static var stripeProductsTypes: Self {
+        .product(name: "Stripe Products Types", package: "swift-stripe-types")
+    }
+    static var stripeCheckoutTypes: Self {
+        .product(name: "Stripe Checkout Types", package: "swift-stripe-types")
+    }
+    static var stripePaymentLinkTypes: Self {
+        .product(name: "Stripe Payment Link Types", package: "swift-stripe-types")
+    }
+    static var stripeBillingTypes: Self {
+        .product(name: "Stripe Billing Types", package: "swift-stripe-types")
+    }
+    static var stripeCapitalTypes: Self {
+        .product(name: "Stripe Capital Types", package: "swift-stripe-types")
+    }
+    static var stripeConnectTypes: Self {
+        .product(name: "Stripe Connect Types", package: "swift-stripe-types")
+    }
+    static var stripeFraudTypes: Self {
+        .product(name: "Stripe Fraud Types", package: "swift-stripe-types")
+    }
+    static var stripeIssuingTypes: Self {
+        .product(name: "Stripe Issuing Types", package: "swift-stripe-types")
+    }
+    static var stripeTerminalTypes: Self {
+        .product(name: "Stripe Terminal Types", package: "swift-stripe-types")
+    }
+    static var stripeTreasuryTypes: Self {
+        .product(name: "Stripe Treasury Types", package: "swift-stripe-types")
+    }
+    static var stripeEntitlementsTypes: Self {
+        .product(name: "Stripe Entitlements Types", package: "swift-stripe-types")
+    }
+    static var stripeSigmaTypes: Self {
+        .product(name: "Stripe Sigma Types", package: "swift-stripe-types")
+    }
+    static var stripeReportingTypes: Self {
+        .product(name: "Stripe Reporting Types", package: "swift-stripe-types")
+    }
+    static var stripeFinancialConnectionsTypes: Self {
+        .product(name: "Stripe Financial Connections Types", package: "swift-stripe-types")
+    }
+    static var stripeTaxTypes: Self {
+        .product(name: "Stripe Tax Types", package: "swift-stripe-types")
+    }
+    static var stripeIdentityTypes: Self {
+        .product(name: "Stripe Identity Types", package: "swift-stripe-types")
+    }
+    static var stripeCryptoTypes: Self {
+        .product(name: "Stripe Crypto Types", package: "swift-stripe-types")
+    }
+    static var stripeClimateTypes: Self {
+        .product(name: "Stripe Climate Types", package: "swift-stripe-types")
+    }
+    static var stripeForwardingTypes: Self {
+        .product(name: "Stripe Forwarding Types", package: "swift-stripe-types")
+    }
+    static var stripeWebhooksTypes: Self {
+        .product(name: "Stripe Webhooks Types", package: "swift-stripe-types")
+    }
 }
 
 extension Target.Dependency {
-    static var serverFoundation: Self { .product(name: "ServerFoundation", package: "swift-server-foundation") }
-    static var environmentVariables: Self { .product(name: "EnvironmentVariables", package: "swift-environment-variables") }
-    static var authenticating: Self { .product(name: "Authenticating", package: "swift-authenticating") }
-    static var dependenciesMacros: Self { .product(name: "DependenciesMacros", package: "swift-dependencies") }
-    static var dependenciesTestSupport: Self { .product(name: "DependenciesTestSupport", package: "swift-dependencies") }
+    static var serverFoundation: Self {
+        .product(name: "ServerFoundation", package: "swift-server-foundation")
+    }
+    static var environmentVariables: Self {
+        .product(name: "EnvironmentVariables", package: "swift-environment-variables")
+    }
+    static var authenticating: Self {
+        .product(name: "Authenticating", package: "swift-authenticating")
+    }
+    static var dependenciesMacros: Self {
+        .product(name: "DependenciesMacros", package: "swift-dependencies")
+    }
+    static var dependenciesTestSupport: Self {
+        .product(name: "DependenciesTestSupport", package: "swift-dependencies")
+    }
     static var tagged: Self { .product(name: "Tagged", package: "swift-tagged") }
 }
 
@@ -147,7 +237,7 @@ let package = Package(
     name: "swift-stripe-live",
     platforms: [
         .macOS(.v14),
-        .iOS(.v17)
+        .iOS(.v17),
     ],
     products: [
         .library(name: .stripeLive, targets: [.stripeLive]),
@@ -190,7 +280,7 @@ let package = Package(
         .library(name: .stripeClimateLive, targets: [.stripeClimateLive]),
         .library(name: .stripeForwardingLive, targets: [.stripeForwardingLive]),
         .library(name: .stripeWebhooksLive, targets: [.stripeWebhooksLive]),
-        .library(name: .stripeLiveShared, targets: [.stripeLiveShared])
+        .library(name: .stripeLiveShared, targets: [.stripeLiveShared]),
     ],
     dependencies: [
         .package(url: "https://github.com/coenttb/swift-authenticating.git", from: "0.0.1"),
@@ -198,7 +288,7 @@ let package = Package(
         .package(url: "https://github.com/coenttb/swift-server-foundation.git", from: "0.3.0"),
         .package(url: "https://github.com/coenttb/swift-stripe-types.git", from: "0.0.1"),
         .package(url: "https://github.com/pointfreeco/swift-dependencies.git", from: "1.9.2"),
-        .package(url: "https://github.com/pointfreeco/swift-tagged.git", from: "0.10.0")
+        .package(url: "https://github.com/pointfreeco/swift-tagged.git", from: "0.10.0"),
     ],
     targets: [
         .target(
@@ -206,7 +296,7 @@ let package = Package(
             dependencies: [
                 .serverFoundation,
                 .environmentVariables,
-                .authenticating
+                .authenticating,
             ]
         ),
         .target(
@@ -255,21 +345,21 @@ let package = Package(
                 .stripeCryptoLive,
                 .stripeClimateLive,
                 .stripeForwardingLive,
-                .stripeWebhooksLive
+                .stripeWebhooksLive,
             ]
         ),
         .testTarget(
             name: "Stripe Live Shared Tests",
             dependencies: [
                 .stripeLiveShared,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .testTarget(
             name: "Stripe Live Tests",
             dependencies: [
                 .stripeLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -279,14 +369,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Balance Live Tests",
             dependencies: [
                 .stripeBalanceLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -296,14 +386,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Balance Transactions Live Tests",
             dependencies: [
                 .stripeBalanceTransactionsLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -313,14 +403,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Charges Live Tests",
             dependencies: [
                 .stripeChargesLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -330,14 +420,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Customers Live Tests",
             dependencies: [
                 .stripeCustomersLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -347,14 +437,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Customer Session Live Tests",
             dependencies: [
                 .stripeCustomerSessionLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -364,14 +454,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Disputes Live Tests",
             dependencies: [
                 .stripeDisputesLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -381,14 +471,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Events Live Tests",
             dependencies: [
                 .stripeEventsLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -398,14 +488,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Event Destinations Live Tests",
             dependencies: [
                 .stripeEventDestinationsLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -415,14 +505,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Files Live Tests",
             dependencies: [
                 .stripeFilesLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -432,14 +522,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe File Links Live Tests",
             dependencies: [
                 .stripeFileLinksLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -449,14 +539,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Mandates Live Tests",
             dependencies: [
                 .stripeMandatesLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -466,14 +556,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Payment Intents Live Tests",
             dependencies: [
                 .stripePaymentIntentsLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -483,14 +573,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Setup Intents Live Tests",
             dependencies: [
                 .stripeSetupIntentsLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -500,14 +590,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Setup Attempts Live Tests",
             dependencies: [
                 .stripeSetupAttemptsLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -517,14 +607,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Payouts Live Tests",
             dependencies: [
                 .stripePayoutsLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -534,14 +624,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Refunds Live Tests",
             dependencies: [
                 .stripeRefundsLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -551,14 +641,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Confirmation Token Live Tests",
             dependencies: [
                 .stripeConfirmationTokenLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -568,14 +658,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Tokens Live Tests",
             dependencies: [
                 .stripeTokensLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -585,14 +675,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Payment Methods Live Tests",
             dependencies: [
                 .stripePaymentMethodsLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -602,14 +692,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Products Live Tests",
             dependencies: [
                 .stripeProductsLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -619,14 +709,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Checkout Live Tests",
             dependencies: [
                 .stripeCheckoutLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -636,14 +726,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Payment Link Live Tests",
             dependencies: [
                 .stripePaymentLinkLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -653,14 +743,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Billing Live Tests",
             dependencies: [
                 .stripeBillingLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -670,14 +760,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Capital Live Tests",
             dependencies: [
                 .stripeCapitalLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -687,14 +777,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Connect Live Tests",
             dependencies: [
                 .stripeConnectLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -704,14 +794,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Fraud Live Tests",
             dependencies: [
                 .stripeFraudLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -721,14 +811,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Issuing Live Tests",
             dependencies: [
                 .stripeIssuingLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -738,14 +828,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Terminal Live Tests",
             dependencies: [
                 .stripeTerminalLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -755,14 +845,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Treasury Live Tests",
             dependencies: [
                 .stripeTreasuryLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -772,14 +862,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Entitlements Live Tests",
             dependencies: [
                 .stripeEntitlementsLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -789,14 +879,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Sigma Live Tests",
             dependencies: [
                 .stripeSigmaLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -806,14 +896,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Reporting Live Tests",
             dependencies: [
                 .stripeReportingLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -823,14 +913,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Financial Connections Live Tests",
             dependencies: [
                 .stripeFinancialConnectionsLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -840,14 +930,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Tax Live Tests",
             dependencies: [
                 .stripeTaxLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -857,14 +947,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Identity Live Tests",
             dependencies: [
                 .stripeIdentityLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -874,14 +964,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Crypto Live Tests",
             dependencies: [
                 .stripeCryptoLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -891,14 +981,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Climate Live Tests",
             dependencies: [
                 .stripeClimateLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -908,14 +998,14 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Forwarding Live Tests",
             dependencies: [
                 .stripeForwardingLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
         ),
         .target(
@@ -925,16 +1015,16 @@ let package = Package(
                 .stripeLiveShared,
                 .serverFoundation,
                 .tagged,
-                .dependenciesMacros
+                .dependenciesMacros,
             ]
         ),
         .testTarget(
             name: "Stripe Webhooks Live Tests",
             dependencies: [
                 .stripeWebhooksLive,
-                .dependenciesTestSupport
+                .dependenciesTestSupport,
             ]
-        )
+        ),
     ],
     swiftLanguageModes: [.v6]
 )
@@ -943,7 +1033,7 @@ let swiftSettings: [SwiftSetting] = [
     .enableUpcomingFeature("MemberImportVisibility"),
     .enableUpcomingFeature("StrictUnsafe"),
     .enableUpcomingFeature("NonisolatedNonsendingByDefault"),
-//    .unsafeFlags(["-warnings-as-errors"]),
+    //    .unsafeFlags(["-warnings-as-errors"]),
     // .unsafeFlags([
     //   "-Xfrontend",
     //   "-warn-long-function-bodies=50",
@@ -953,5 +1043,6 @@ let swiftSettings: [SwiftSetting] = [
 ]
 
 for index in package.targets.indices {
-    package.targets[index].swiftSettings = (package.targets[index].swiftSettings ?? []) + swiftSettings
+    package.targets[index].swiftSettings =
+        (package.targets[index].swiftSettings ?? []) + swiftSettings
 }

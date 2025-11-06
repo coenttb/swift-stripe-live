@@ -82,10 +82,8 @@ struct URLRequestHandlerStripeRateLimitTests {
                     }
                 }
 
-                for await success in group {
-                    if success {
-                        successCount += 1
-                    }
+                for await success in group where success {
+                    successCount += 1
                 }
             }
         }

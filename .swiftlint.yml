@@ -2,32 +2,37 @@ disabled_rules:
   - line_length
   - identifier_name
   - nesting  # Allow deeply nested enums for namespacing
-  - type_name
-  - explicit_enum_raw_value
-  - file_length
-  - function_body_length
   - redundant_discardable_let  # Preserve 'let _ =' in result builder contexts (required for Swift 6.0+)
+  - opening_brace  # Handled by swift-format
+  - trailing_comma  # Handled by swift-format
+  - trailing_whitespace  # Preserve whitespace in snapshot tests
+  - orphaned_doc_comment  # Allow module-level documentation
+  - redundant_string_enum_value  # Explicit enum values match API specification
+  - function_body_length  # Test files may have longer setup functions
+  - cyclomatic_complexity  # API encoding/decoding functions can be complex
+  - non_optional_string_data_conversion  # UTF-8 encoding can fail, optional is correct
+  - inclusive_language  # API types must match Stripe API terminology
+  - todo  # TODOs mark implementation limitations, not code issues
+  - file_length  # Complex API models can be long
+  - type_body_length  # API models with many fields can have long bodies
+  - comment_spacing  # TODO comments use //TODO format
+  - force_try  # Router initialization uses try! as it cannot fail with static routes
 
 opt_in_rules:
   - empty_count
   - explicit_init
-  - sorted_imports
   - force_cast
-  - force_try
   - closure_spacing
   - operator_usage_whitespace
   - private_outlet
   - redundant_nil_coalescing
-  - empty_string
   - literal_expression_end_indentation
   - single_test_class
   - sorted_first_last
   - vertical_whitespace
-  - strict_fileprivate
   - legacy_random
   - no_extension_access_modifier
   - colon
-  - trailing_comma
 
 included:
   - Package.swift
@@ -39,6 +44,7 @@ excluded:
   - Pods
   - fastlane
   - build
+  - .build
 
 analyzer_rules:
   - unused_import
@@ -48,3 +54,18 @@ colon:
 
 vertical_whitespace:
   max_empty_lines: 1
+
+# Allow short type names, underscores, and long names for nested API types
+type_name:
+  min_length:
+    warning: 1
+    error: 0
+  max_length:
+    warning: 100
+    error: 150
+  allowed_symbols: "_"
+
+# Allow more function parameters for API types with many fields
+function_parameter_count:
+  warning: 8
+  error: 10

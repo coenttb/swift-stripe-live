@@ -14,6 +14,12 @@ import Stripe_Live_Shared
 import Stripe_Products_Live
 import Testing
 
+struct RequestTiming {
+    let index: Int
+    let duration: TimeInterval
+    let delayed: Bool
+}
+
 @Suite(
     "Stripe Rate Limit Stress Tests",
     .dependency(\.projectRoot, .stripe),
@@ -52,7 +58,7 @@ struct StripeRateLimitStressTests {
         let startTime = Date()
 
         // Track individual request timings
-        var requestTimings: [(index: Int, duration: TimeInterval, delayed: Bool)] = []
+        var requestTimings: [RequestTiming] = []
 
         // Make requests as fast as possible
         for i in 1...requestsPerSecond {
@@ -76,7 +82,9 @@ struct StripeRateLimitStressTests {
                     )
                 }
 
-                requestTimings.append((index: i, duration: requestDuration, delayed: wasDelayed))
+                requestTimings.append(
+                    RequestTiming(index: i, duration: requestDuration, delayed: wasDelayed)
+                )
                 successCount += 1
 
             } catch {

@@ -182,6 +182,6 @@ struct StripeRateLimitingIntegrationTests {
 
         // All burst requests should succeed with rate limiting
         #expect(createdProducts.count == productNames.count, "All burst requests should succeed")
-        #expect(createdProducts.count > 0, "At least some requests should succeed")
+        #expect(!createdProducts.isEmpty, "At least some requests should succeed")
     }
 }
